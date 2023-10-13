@@ -1,0 +1,28 @@
+{
+	"env": {
+		"browser": true,
+		"es2021": true
+	},
+	"extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
+	"parserOptions": {
+		"ecmaVersion": "latest",
+		"sourceType": "module"
+	},
+	"plugins": ["react", "react-refresh", "react-hooks"],
+	"rules": {
+		"import/extensions": ["off"],
+		"semi": ["error", "always"],
+		"camelcase": "off",
+		"no-unused-vars": "off",
+		"react/react-in-jsx-scope": "off"
+	},
+	"overrides": [
+		{
+			"files": ["*.js", "*.jsx"],
+			"rules": {
+				"no-console": "warn",
+				"no-alert": "warn"
+			}
+		}
+	]
+}
