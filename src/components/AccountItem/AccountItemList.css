@@ -11,6 +11,7 @@
 	border: 1px solid black;
 	border-radius: 7px;
 	padding: 10px;
+	margin-top: 10px;
 }
 
 .item-list--product__date {

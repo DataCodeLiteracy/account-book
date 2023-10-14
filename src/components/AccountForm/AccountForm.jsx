@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import './AccountForm.css';
 
-const AccountForm = () => {
+const AccountForm = ({ getFormData }) => {
 	const [formData, setFormData] = useState({
 		id: 0,
 		name: '',
 		price: 0,
-		type: '',
+		type: 'food',
 		date: new Date().toISOString().split('T')[0],
 		memo: '',
 		repurchase: true,
@@ -34,6 +34,8 @@ const AccountForm = () => {
 			memo: formData.memo,
 			repurchase: true,
 		});
+
+		getFormData(formData);
 	};
 
 	return (

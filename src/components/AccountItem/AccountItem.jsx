@@ -2,11 +2,11 @@ import AccountItemFilter from './AccountItemFilter';
 import AccountItemList from './AccountItemList';
 import './AccountItem.css';
 
-const AccountItem = () => {
+const AccountItem = ({ items }) => {
 	return (
 		<div className="account-item">
 			<AccountItemFilter />
-			<AccountItemList />
+			<AccountItemList items={items} />
 		</div>
 	);
 };
