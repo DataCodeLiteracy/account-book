@@ -1,0 +1,8 @@
+.account-item--filter {
+	display: flex;
+	margin: auto;
+}
+
+.account-item--filter > div {
+	margin-right: 20px;
+}
