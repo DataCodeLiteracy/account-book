@@ -1,13 +1,16 @@
-const AccountItemProduct = (item) => {
+const AccountItemProduct = (props) => {
+	const { id, date, name, memo, price, handleDelete } = props;
 	return (
 		<div className="account-item-list--product">
 			<div>
-				<div className="item-list--product__date">{item.date}</div>
-				<div className="item-list--product__name">{item.name}</div>
+				<div className="item-list--product__date">{date}</div>
+				<div className="item-list--product__name">{name}</div>
 			</div>
-			<div className="item-list--product__memo">{item.memo}</div>
-			<div className="item-list--product__price">{item.price}</div>
-			<button className="deleteBtn">삭제</button>
+			<div className="item-list--product__memo">{memo}</div>
+			<div className="item-list--product__price">{price}</div>
+			<button className="deleteBtn" onClick={() => handleDelete(id)}>
+				삭제
+			</button>
 		</div>
 	);
 };

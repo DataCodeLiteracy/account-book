@@ -6,15 +6,17 @@ const AccountBook = () => {
 	const [itemList, setItemList] = useState([]);
 
 	const getFormData = (data) => {
-		setItemList([...itemList, data]);
+		setItemList([data, ...itemList]);
 	};
 
-	console.log(itemList);
+	const handleDelete = (id) => {
+		setItemList(itemList.filter((item) => item.id !== id));
+	};
 
 	return (
 		<div>
 			<AccountForm getFormData={getFormData} />
-			<AccountItem items={itemList} />
+			<AccountItem items={itemList} handleDelete={handleDelete} />
 		</div>
 	);
 };

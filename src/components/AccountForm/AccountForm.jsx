@@ -3,7 +3,7 @@ import './AccountForm.css';
 
 const AccountForm = ({ getFormData }) => {
 	const [formData, setFormData] = useState({
-		id: 0,
+		id: new Date(),
 		name: '',
 		price: 0,
 		type: 'food',
@@ -11,7 +11,7 @@ const AccountForm = ({ getFormData }) => {
 		memo: '',
 	});
 	const [isSubmit, setIsSubmit] = useState(false);
-	const [isMemoChecked, setIsMemoChecked] = useState(true);
+	const [isMemoChecked, setIsMemoChecked] = useState(false);
 	const [isRadio, setIsRadio] = useState(true);
 
 	const nameRef = useRef(null);
@@ -21,7 +21,7 @@ const AccountForm = ({ getFormData }) => {
 
 		if (isSubmit) {
 			setFormData({
-				id: Math.random(),
+				id: new Date(),
 				name: '',
 				price: 0,
 				type: 'food',
@@ -61,7 +61,7 @@ const AccountForm = ({ getFormData }) => {
 		e.preventDefault();
 
 		setFormData({
-			id: Math.random(),
+			id: formData.id,
 			name: formData.name,
 			price: formData.price,
 			type: formData.type,
@@ -114,7 +114,9 @@ const AccountForm = ({ getFormData }) => {
 						checked={isMemoChecked}
 					/>
 					<span>메모 작성</span>
-					<input type="text" id="memo" onChange={inputHandler} value={isSubmit ? '' : formData.memo} />
+					{isMemoChecked && (
+						<input type="text" id="memo" onChange={inputHandler} value={isSubmit ? '' : formData.memo} />
+					)}
 				</div>
 			</div>
 			<div>
