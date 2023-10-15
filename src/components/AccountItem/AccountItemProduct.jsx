@@ -7,6 +7,7 @@ const AccountItemProduct = (item) => {
 			</div>
 			<div className="item-list--product__memo">{item.memo}</div>
 			<div className="item-list--product__price">{item.price}</div>
+			<button className="deleteBtn">삭제</button>
 		</div>
 	);
 };

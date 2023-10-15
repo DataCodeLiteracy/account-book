@@ -9,6 +9,8 @@ const AccountBook = () => {
 		setItemList([...itemList, data]);
 	};
 
+	console.log(itemList);
+
 	return (
 		<div>
 			<AccountForm getFormData={getFormData} />

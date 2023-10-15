@@ -5,6 +5,7 @@
 }
 
 .account-item-list--product {
+	position: relative;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
@@ -15,15 +16,31 @@
 }
 
 .item-list--product__date {
+	text-align: center;
 	font-size: 14px;
 	color: gray;
+	width: 150px;
 }
 
 .item-list--product__name {
+	text-align: center;
 	font-size: 18px;
 	margin-top: 10px;
 }
 
+.item-list--product__memo {
+	text-align: center;
+	width: 250px;
+}
+
 .item-list--product__price {
+	text-align: center;
 	font-size: 25px;
+	width: 200px;
+}
+
+.deleteBtn {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
 }
