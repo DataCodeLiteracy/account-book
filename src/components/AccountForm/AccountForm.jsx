@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import './AccountForm.css';
 
-const AccountForm = ({ getFormData }) => {
+const AccountForm = ({ getFormData, lastOrder }) => {
 	const [formData, setFormData] = useState({
 		id: new Date(),
 		name: '',
@@ -9,6 +9,7 @@ const AccountForm = ({ getFormData }) => {
 		type: 'food',
 		date: new Date().toISOString().split('T')[0],
 		memo: '',
+		order: lastOrder + 1,
 	});
 	const [isSubmit, setIsSubmit] = useState(false);
 	const [isMemoChecked, setIsMemoChecked] = useState(false);
@@ -60,14 +61,15 @@ const AccountForm = ({ getFormData }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		setFormData({
-			id: formData.id,
-			name: formData.name,
-			price: formData.price,
-			type: formData.type,
-			date: formData.date,
-			memo: formData.memo,
-		});
+		setFormData((prevData) => ({
+			id: new Date(),
+			name: '',
+			price: 0,
+			type: 'food',
+			date: new Date().toISOString().split('T')[0],
+			memo: '',
+			order: prevData.order + 1,
+		}));
 
 		getFormData(formData);
 
@@ -90,7 +92,7 @@ const AccountForm = ({ getFormData }) => {
 				<select name="type" id="type" onChange={selectHandler}>
 					<option value="food">식료품</option>
 					<option value="kitchen">주방용품</option>
-					<option value="car">차량용품</option>
+					<option value="living">생활용품</option>
 					<option value="frozen-food">냉동식품</option>
 				</select>
 			</div>

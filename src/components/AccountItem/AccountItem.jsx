@@ -2,10 +2,10 @@ import AccountItemFilter from './AccountItemFilter';
 import AccountItemList from './AccountItemList';
 import './AccountItem.css';
 
-const AccountItem = ({ items, handleDelete }) => {
+const AccountItem = ({ items, handleDelete, typeFilterHandler, filterHandler }) => {
 	return (
 		<div className="account-item">
-			<AccountItemFilter />
+			<AccountItemFilter typeFilterHandler={typeFilterHandler} filterHandler={filterHandler} />
 			<AccountItemList items={items} handleDelete={handleDelete} />
 		</div>
 	);
