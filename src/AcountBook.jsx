@@ -5,11 +5,15 @@ import AccountItem from './components/AccountItem/AccountItem';
 const AccountBook = () => {
 	const [itemList, setItemList] = useState([]);
 	const [type, setType] = useState('all');
+	const [startDate, setStartDate] = useState(null);
+	const [endDate, setEndDate] = useState(null);
 
-	const lastOrder = itemList.length > 0 ? itemList[itemList.length - 1].order : 0;
-
-	const saveItemsToLocalStorage = (items) => {
-		localStorage.setItem('itemList', JSON.stringify(items));
+	const dateSelectHandler = (dateId, dateValue) => {
+		if (dateId === 'startDate') {
+			setStartDate(dateValue);
+		} else if (dateId === 'endDate') {
+			setEndDate(dateValue);
+		}
 	};
 
 	console.log(itemList);
@@ -23,6 +27,26 @@ const AccountBook = () => {
 		} else {
 			setItemList([]);
 		}
+	};
+
+	useEffect(() => {
+		filteredItems = JSON.parse(localStorage.getItem('itemList'));
+		const filteredByDate = filteredItems.filter((item, index) => {
+			if (startDate && endDate) {
+				const itemDate = new Date(item.date);
+				const startDateValue = new Date(startDate);
+				const endDateValue = new Date(endDate);
+				return itemDate >= startDateValue && itemDate <= endDateValue;
+			}
+			return true;
+		});
+		setItemList(filteredByDate);
+	}, [startDate, endDate]);
+
+	const lastOrder = itemList.length > 0 ? itemList[itemList.length - 1].order : 0;
+
+	const saveItemsToLocalStorage = (items) => {
+		localStorage.setItem('itemList', JSON.stringify(items));
 	};
 
 	useEffect(() => {
@@ -46,7 +70,7 @@ const AccountBook = () => {
 		return type;
 	};
 
-	const filteredItems = itemList.filter((item) => {
+	let filteredItems = itemList.filter((item) => {
 		if (type === 'all') {
 			return true;
 		}
@@ -69,17 +93,6 @@ const AccountBook = () => {
 		}
 	};
 
-	const dateFilterHandler = (id, value) => {
-		console.log(value);
-		const dateFilteredItems = itemList.filter((item) => {
-			if (id === 'startDate') {
-				item.date >= value;
-			} else if (id === 'endDate') {
-				item.date <= value;
-			}
-		});
-	};
-
 	return (
 		<div>
 			<AccountForm getFormData={getFormData} lastOrder={lastOrder} />
@@ -90,7 +103,7 @@ const AccountBook = () => {
 				handleDelete={handleDelete}
 				typeChangeHandler={typeChangeHandler}
 				filterHandler={filterHandler}
-				dateFilterHandler={dateFilterHandler}
+				dateSelectHandler={dateSelectHandler}
 			/>
 		</div>
 	);

@@ -9,19 +9,19 @@ const AccountItem = ({
 	handleDelete,
 	typeChangeHandler,
 	filterHandler,
-	dateFilterHandler,
+	dateSelectHandler,
 }) => {
 	return (
 		<div className="account-item">
 			<AccountItemFilter
 				typeChangeHandler={typeChangeHandler}
 				filterHandler={filterHandler}
-				dateFilterHandler={dateFilterHandler}
+				dateSelectHandler={dateSelectHandler}
 			/>
 			<AccountItemList
 				items={items}
-				type={type}
 				filteredItems={filteredItems}
+				type={type}
 				handleDelete={handleDelete}
 				typeChangeHandler={typeChangeHandler}
 			/>

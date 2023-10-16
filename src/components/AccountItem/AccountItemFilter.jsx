@@ -1,6 +1,6 @@
 import './AccountItemFilter.css';
 
-const AccountItemFilter = ({ typeChangeHandler, filterHandler, dateFilterHandler }) => {
+const AccountItemFilter = ({ typeChangeHandler, filterHandler, dateSelectHandler }) => {
 	const selectTypeHandler = (e) => {
 		const { value } = e.target;
 		typeChangeHandler(value);
@@ -9,7 +9,7 @@ const AccountItemFilter = ({ typeChangeHandler, filterHandler, dateFilterHandler
 	const selectFilter = (e) => {
 		const { id, value } = e.target;
 		filterHandler(value);
-		dateFilterHandler(id, value);
+		dateSelectHandler(id, value);
 	};
 
 	return (

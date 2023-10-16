@@ -54,7 +54,6 @@ const AccountForm = ({ getFormData, lastOrder }) => {
 
 	const selectHandler = (e) => {
 		const { id, value } = e.target;
-		console.log(value);
 		setFormData({ ...formData, [id]: value });
 	};
 
