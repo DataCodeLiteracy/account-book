@@ -4,6 +4,7 @@ import AccountItem from './components/AccountItem/AccountItem';
 
 const AccountBook = () => {
 	const [itemList, setItemList] = useState([]);
+	const [type, setType] = useState('all');
 
 	const lastOrder = itemList.length > 0 ? itemList[itemList.length - 1].order : 0;
 
@@ -15,6 +16,7 @@ const AccountBook = () => {
 
 	const loadItemsFromLocalStorage = () => {
 		const storedItems = localStorage.getItem('itemList');
+
 		if (storedItems) {
 			const items = JSON.parse(storedItems);
 			setItemList(items);
@@ -39,17 +41,17 @@ const AccountBook = () => {
 		saveItemsToLocalStorage(updatedItems);
 	};
 
-	const typeFilterHandler = (type) => {
-		let filteredItems;
-
-		if (type === 'all') {
-			filteredItems = itemList;
-		} else {
-			filteredItems = itemList.filter((item) => item.type === type);
-		}
-
-		setItemList(filteredItems);
+	const typeChangeHandler = (selectedType) => {
+		setType(selectedType);
+		return type;
 	};
+
+	const filteredItems = itemList.filter((item) => {
+		if (type === 'all') {
+			return true;
+		}
+		return item.type === type;
+	});
 
 	const filterHandler = (filter) => {
 		if (filter === 'high-price') {
@@ -67,14 +69,28 @@ const AccountBook = () => {
 		}
 	};
 
+	const dateFilterHandler = (id, value) => {
+		console.log(value);
+		const dateFilteredItems = itemList.filter((item) => {
+			if (id === 'startDate') {
+				item.date >= value;
+			} else if (id === 'endDate') {
+				item.date <= value;
+			}
+		});
+	};
+
 	return (
 		<div>
 			<AccountForm getFormData={getFormData} lastOrder={lastOrder} />
 			<AccountItem
 				items={itemList}
+				filteredItems={filteredItems}
+				type={type}
 				handleDelete={handleDelete}
-				typeFilterHandler={typeFilterHandler}
+				typeChangeHandler={typeChangeHandler}
 				filterHandler={filterHandler}
+				dateFilterHandler={dateFilterHandler}
 			/>
 		</div>
 	);

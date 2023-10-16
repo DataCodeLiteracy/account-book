@@ -4,7 +4,7 @@ import AccountItemProduct from './AccountItemProduct';
 const AccountItemList = (props) => {
 	return (
 		<section className="account-item-list">
-			{props.items.map((item) => (
+			{props.filteredItems.map((item) => (
 				<AccountItemProduct
 					key={item.id}
 					id={item.id}

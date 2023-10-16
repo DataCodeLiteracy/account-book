@@ -2,11 +2,29 @@ import AccountItemFilter from './AccountItemFilter';
 import AccountItemList from './AccountItemList';
 import './AccountItem.css';
 
-const AccountItem = ({ items, handleDelete, typeFilterHandler, filterHandler }) => {
+const AccountItem = ({
+	items,
+	filteredItems,
+	type,
+	handleDelete,
+	typeChangeHandler,
+	filterHandler,
+	dateFilterHandler,
+}) => {
 	return (
 		<div className="account-item">
-			<AccountItemFilter typeFilterHandler={typeFilterHandler} filterHandler={filterHandler} />
-			<AccountItemList items={items} handleDelete={handleDelete} />
+			<AccountItemFilter
+				typeChangeHandler={typeChangeHandler}
+				filterHandler={filterHandler}
+				dateFilterHandler={dateFilterHandler}
+			/>
+			<AccountItemList
+				items={items}
+				type={type}
+				filteredItems={filteredItems}
+				handleDelete={handleDelete}
+				typeChangeHandler={typeChangeHandler}
+			/>
 		</div>
 	);
 };

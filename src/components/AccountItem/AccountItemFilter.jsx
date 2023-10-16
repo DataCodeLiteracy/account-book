@@ -1,18 +1,15 @@
-import { useState } from 'react';
 import './AccountItemFilter.css';
 
-const AccountItemFilter = ({ typeFilterHandler, filterHandler }) => {
-	const [selectedOption, setSelectedOption] = useState(null);
-
+const AccountItemFilter = ({ typeChangeHandler, filterHandler, dateFilterHandler }) => {
 	const selectTypeHandler = (e) => {
 		const { value } = e.target;
-		setSelectedOption(value);
-		typeFilterHandler(value);
+		typeChangeHandler(value);
 	};
 
 	const selectFilter = (e) => {
-		const { value } = e.target;
+		const { id, value } = e.target;
 		filterHandler(value);
+		dateFilterHandler(id, value);
 	};
 
 	return (
@@ -22,7 +19,7 @@ const AccountItemFilter = ({ typeFilterHandler, filterHandler }) => {
 					<option value="all">전체</option>
 					<option value="food">식료품</option>
 					<option value="kitchen">주방용품</option>
-					<option value="living	">생활용품</option>
+					<option value="living">생활용품</option>
 					<option value="frozen-food">냉동식품</option>
 				</select>
 			</div>
@@ -36,10 +33,10 @@ const AccountItemFilter = ({ typeFilterHandler, filterHandler }) => {
 				</select>
 			</div>
 			<div>
-				<input type="date" />
+				<input type="date" id="startDate" onChange={selectFilter} />
 			</div>
 			<div>
-				<input type="date" />
+				<input type="date" id="endDate" onChange={selectFilter} />
 			</div>
 		</section>
 	);
