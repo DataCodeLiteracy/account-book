@@ -1,18 +1,31 @@
 import './AccountItemFilter.css';
 
-const AccountItemFilter = () => {
+const AccountItemFilter = ({ typeChangeHandler, filterHandler, dateSelectHandler }) => {
+	const selectTypeHandler = (e) => {
+		const { value } = e.target;
+		typeChangeHandler(value);
+	};
+
+	const selectFilter = (e) => {
+		const { id, value } = e.target;
+		filterHandler(value);
+		dateSelectHandler(id, value);
+	};
+
 	return (
 		<section className="account-item--filter">
 			<div>
-				<select name="type" id="type">
+				<select name="type" id="type" onChange={selectTypeHandler}>
+					<option value="all">전체</option>
 					<option value="food">식료품</option>
 					<option value="kitchen">주방용품</option>
-					<option value="car">차량용품</option>
+					<option value="living">생활용품</option>
 					<option value="frozen-food">냉동식품</option>
 				</select>
 			</div>
 			<div>
-				<select name="filter" id="filter">
+				<select name="filter" id="filter" onChange={selectFilter}>
+					<option value="select">선택</option>
 					<option value="high-price">가격 높은 순</option>
 					<option value="low-price">가격 낮은 순</option>
 					<option value="latest">최신 순</option>
@@ -20,10 +33,10 @@ const AccountItemFilter = () => {
 				</select>
 			</div>
 			<div>
-				<input type="date" />
+				<input type="date" id="startDate" onChange={selectFilter} />
 			</div>
 			<div>
-				<input type="date" />
+				<input type="date" id="endDate" onChange={selectFilter} />
 			</div>
 		</section>
 	);

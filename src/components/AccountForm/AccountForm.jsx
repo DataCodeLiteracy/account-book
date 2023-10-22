@@ -1,20 +1,23 @@
 import { useRef, useState } from 'react';
 import './AccountForm.css';
+import { useEffect } from 'react';
 
-const AccountForm = ({ getFormData }) => {
+const AccountForm = ({ getFormData, lastOrder }) => {
 	const [formData, setFormData] = useState({
 		id: new Date(),
 		name: '',
 		price: 0,
-		type: 'food',
+		type: '',
 		date: new Date().toISOString().split('T')[0],
 		memo: '',
+		order: lastOrder + 1,
 	});
 	const [isSubmit, setIsSubmit] = useState(false);
 	const [isMemoChecked, setIsMemoChecked] = useState(false);
 	const [isRadio, setIsRadio] = useState(true);
 
 	const nameRef = useRef(null);
+	const memoRef = useRef(null);
 
 	const inputHandler = (e) => {
 		const { id, type, value } = e.target;
@@ -24,9 +27,10 @@ const AccountForm = ({ getFormData }) => {
 				id: new Date(),
 				name: '',
 				price: 0,
-				type: 'food',
+				type: formData.type,
 				date: new Date().toISOString().split('T')[0],
 				memo: '',
+				order: formData.order,
 			});
 			setIsSubmit(false);
 		} else {
@@ -54,19 +58,27 @@ const AccountForm = ({ getFormData }) => {
 	};
 
 	const checkInputHandler = (e) => {
-		e.target.checked === true ? setIsMemoChecked(true) : setIsMemoChecked(false);
+		const checked = e.target.checked;
+		checked === true ? setIsMemoChecked(true) : setIsMemoChecked(false);
 	};
+
+	useEffect(() => {
+		isMemoChecked && memoRef.current.focus();
+	}, [isMemoChecked]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
+		localStorage.setItem('selectedType', formData.type);
+
 		setFormData({
-			id: formData.id,
+			id: new Date(),
 			name: formData.name,
 			price: formData.price,
 			type: formData.type,
 			date: formData.date,
 			memo: formData.memo,
+			order: formData.order + 1,
 		});
 
 		getFormData(formData);
@@ -74,6 +86,13 @@ const AccountForm = ({ getFormData }) => {
 		setIsSubmit(true);
 		nameRef.current.focus();
 	};
+
+	useEffect(() => {
+		const selectedType = localStorage.getItem('selectedType');
+		if (selectedType) {
+			setFormData({ ...formData, type: selectedType });
+		}
+	}, []);
 
 	return (
 		<form className="account-form" onSubmit={handleSubmit}>
@@ -90,7 +109,7 @@ const AccountForm = ({ getFormData }) => {
 				<select name="type" id="type" onChange={selectHandler}>
 					<option value="food">식료품</option>
 					<option value="kitchen">주방용품</option>
-					<option value="car">차량용품</option>
+					<option value="living">생활용품</option>
 					<option value="frozen-food">냉동식품</option>
 				</select>
 			</div>
@@ -115,7 +134,7 @@ const AccountForm = ({ getFormData }) => {
 					/>
 					<span>메모 작성</span>
 					{isMemoChecked && (
-						<input type="text" id="memo" onChange={inputHandler} value={isSubmit ? '' : formData.memo} />
+						<input type="text" id="memo" onChange={inputHandler} value={isSubmit ? '' : formData.memo} ref={memoRef} />
 					)}
 				</div>
 			</div>
